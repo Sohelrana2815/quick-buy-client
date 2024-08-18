@@ -49,6 +49,9 @@ const Navbar = () => {
           <Link to="/registration">
             <button className="btn">Sign up</button>
           </Link>
+          <Link to="/signIn">
+            <button className="btn">Sign in</button>
+          </Link>
         </div>
       </div>
     </>

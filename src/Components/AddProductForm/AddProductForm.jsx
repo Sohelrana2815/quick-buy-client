@@ -20,6 +20,20 @@ const AddProductForm = () => {
     e.preventDefault();
 
     console.log("Form Data : ", formData);
+    const newProduct = formData;
+
+    fetch("http://localhost:5000/products", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(newProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          alert("Added product");
+        }
+      });
   };
 
   return (

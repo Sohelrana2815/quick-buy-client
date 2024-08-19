@@ -5,6 +5,7 @@ import AddProductForm from "../Components/AddProductForm/AddProductForm";
 import Registration from "../Components/Registration/Registration";
 import SignIn from "../Components/SignIn/SignIn";
 import PrivateRoute from "../Private/PrivateRoute";
+import Details from "../Components/Details/Details";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch("http://localhost:5000/products"),
       },
       {
         path: "/addProduct",
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/signIn",
         element: <SignIn />,
+      },
+      {
+        path: "/details/:id",
+        element: (
+          <PrivateRoute>
+            <Details />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,8 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log("Location in the login page", location);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -25,6 +29,7 @@ const SignIn = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         console.log(error.message);

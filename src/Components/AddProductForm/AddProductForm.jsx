@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const AddProductForm = () => {
+  const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -20,12 +22,16 @@ const AddProductForm = () => {
     e.preventDefault();
 
     console.log("Form Data : ", formData);
-    const newProduct = formData;
+
+    const dataToSend = {
+      ...formData,
+      email: user?.email,
+    };
 
     fetch("http://localhost:5000/products", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(newProduct),
+      body: JSON.stringify(dataToSend),
     })
       .then((res) => res.json())
       .then((data) => {

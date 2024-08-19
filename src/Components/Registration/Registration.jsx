@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Registration = () => {
+  const { createUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,57 +19,77 @@ const Registration = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+
+    const { email, password } = formData;
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 p-6 rounded shadow-md w-full max-w-sm"
-      >
-        <h2 className="text-2xl font-bold mb-4 text-white">Register</h2>
-        <div className="mb-4">
-          <label className="block text-gray-300">Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="input input-bordered w-full bg-gray-700 text-white"
-            placeholder="Enter your name"
-            autoComplete="name"
-          />
+    <div className="hero bg-base-200 min-h-screen">
+      <div className="hero-content flex-col ">
+        <div className="text-center lg:text-left">
+          <h1 className="text-5xl font-bold">Register now!</h1>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-300">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="input input-bordered w-full bg-gray-700 text-white"
-            placeholder="Enter your email"
-            autoComplete="email"
-          />
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+          <form onSubmit={handleSubmit} className="card-body">
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter name"
+                className="input input-bordered"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                className="input input-bordered"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                className="input input-bordered"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-control mt-6">
+              <input
+                type="submit"
+                value="Register"
+                className="btn btn-primary"
+              />
+            </div>
+          </form>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-300">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="input input-bordered w-full bg-gray-700 text-white"
-            placeholder="Enter your password"
-            autoComplete="current-password"
-          />
-        </div>
-        <button type="submit" className="btn btn-primary w-full">
-          Register
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

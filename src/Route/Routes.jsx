@@ -4,6 +4,7 @@ import Home from "../Components/Home/Home";
 import AddProductForm from "../Components/AddProductForm/AddProductForm";
 import Registration from "../Components/Registration/Registration";
 import SignIn from "../Components/SignIn/SignIn";
+import PrivateRoute from "../Private/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addProduct",
-        element: <AddProductForm />,
+        element: (
+          <PrivateRoute>
+            <AddProductForm />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/registration",

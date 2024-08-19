@@ -6,6 +6,8 @@ import Registration from "../Components/Registration/Registration";
 import SignIn from "../Components/SignIn/SignIn";
 import PrivateRoute from "../Private/PrivateRoute";
 import Details from "../Components/Details/Details";
+import MyCart from "../Components/MyCart/MyCart";
+import Update from "../Components/Page/Update";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Details />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myCart",
+        element: (
+          <PrivateRoute>
+            <MyCart />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivateRoute>
+            <Update />
           </PrivateRoute>
         ),
       },
